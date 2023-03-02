@@ -1,0 +1,26 @@
+{
+  "name": "big-proxy-api-tests",
+  "version": "1.0.0",
+  "description": "BIG-Proxy API auto-tests",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mraichev/BiG-Proxy-Api-Tests.git"
+  },
+  "keywords": [
+    "Cypress",
+    "JavaSctipt"
+  ],
+  "author": "Maksym Raichev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mraichev/BiG-Proxy-Api-Tests/issues"
+  },
+  "homepage": "https://github.com/mraichev/BiG-Proxy-Api-Tests#readme",
+  "dependencies": {
+    "cypress": "^12.7.0"
+  }
+}

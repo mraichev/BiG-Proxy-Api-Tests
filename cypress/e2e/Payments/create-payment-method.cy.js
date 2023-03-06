@@ -1,10 +1,10 @@
 const login_url = '/login/user';
 const user_email = 'raychevinkiev76@outlook.com';
 const user_password = 'Qwerty1Admin'
-const check_user_url = '/check/user/' + user_email;
-let sessionToken = ''
+const payment_url = '/payments/payment-methods'
+let sessionToken = '';
 
-describe('Check user in oneLogin Tests', ()=>{
+describe('Create Payment Method Tests', ()=> {
     it('Get Session Token', ()=> {
         cy.request({
             method: 'POST',
@@ -16,14 +16,26 @@ describe('Check user in oneLogin Tests', ()=>{
     })
     it('should return status 200', ()=> {
         cy.request({
-            method: 'GET',
-            url: check_user_url,
+            method: 'POST',
+            url: payment_url,
             headers: {
-                Authorization: 'Bearer' + sessionToken,
+                Authorization: 'Bearer ' + sessionToken,
                 accept: 'application/json'
             }
         }).then(({status})=> {
             expect(status).equal(200);
+        })
+    })
+    it('should return secret code', ()=> {
+        cy.request({
+            method: 'POST',
+            url: payment_url,
+            headers: {
+                Authorization: 'Bearer ' + sessionToken,
+                accept: 'application/json'
+            }
+        }).then(({body})=> {
+            expect(body.message.secret).not.to.be.empty;
         })
     })
 })

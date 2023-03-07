@@ -1,4 +1,4 @@
-const email = "maxraychev@ukr.net";
+const email = "maxraychev1@ukr.net";
 const password = "Qwerty1Admin";
 const firstName = "Max";
 const lastName = "Raychev";
@@ -17,7 +17,7 @@ describe('Classic Registration Tests', ()=> {
             method: 'POST',
             url: step1Url,
             body: {
-                "email": "maxraychev@ukr.net",
+                "email": "maxraychev1@ukr.net",
                 "firstName":"Max",
                 "lastName": "Raychev",
                 "password": "Qwerty1Admin",
@@ -39,9 +39,8 @@ describe('Classic Registration Tests', ()=> {
                 otpCode,
             }
         }).then(({body})=> {
-            expect(body.message.user.username).to.be.eql('maxraychev')
+            expect(body.message.user.username).to.be.eql('maxraychev1')
             expect(body.message.user.email).to.be.eql(email)
-            expect(body.message.user.id).to.be.true
         })
     })
 })

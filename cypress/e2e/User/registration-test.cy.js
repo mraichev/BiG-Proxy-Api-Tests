@@ -1,4 +1,4 @@
-const email = "maxraychev1@ukr.net";
+const email = "maxraychev@ukr.net";
 const password = "Qwerty1Admin";
 const firstName = "Max";
 const lastName = "Raychev";
@@ -6,22 +6,35 @@ const projectId = 1;
 const otpCode = 657284
 const step1Url = "/registration/step1"
 const confirmURL = '/registration/userEmail'
+const deleteUserUrl= '/dropUserEverywhere/'
 let timlyToken = '';
 let response;
 
 
 // This is set of registration tests
 describe('Classic Registration Tests', ()=> {
+    before(()=> {
+        cy.request('/check/user/maxraychev@ukr.net').then(({body})=> {
+            if (body.error == false){
+                cy.request({
+                    method: 'DELETE',
+                    url: deleteUserUrl + body.message.id,
+                    failOnStatusCode: false
+                })
+            }
+        })
+    })
+
     it('should send confirmation opt code to email', ()=>{
         cy.request({
             method: 'POST',
             url: step1Url,
             body: {
-                "email": "maxraychev1@ukr.net",
-                "firstName":"Max",
-                "lastName": "Raychev",
-                "password": "Qwerty1Admin",
-                "projectId": 1
+                email,
+                password,
+                firstName,
+                lastName,
+                projectId  
             }
         }).then(({body})=> {
             timlyToken = body.message.timlyToken;
@@ -39,7 +52,7 @@ describe('Classic Registration Tests', ()=> {
                 otpCode,
             }
         }).then(({body})=> {
-            expect(body.message.user.username).to.be.eql('maxraychev1')
+            expect(body.message.user.username).to.be.eql('maxraychev')
             expect(body.message.user.email).to.be.eql(email)
         })
     })

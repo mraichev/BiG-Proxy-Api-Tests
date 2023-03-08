@@ -55,22 +55,6 @@ describe('Create Subscription Tests', ()=> {
             sessionToken = body.message.sessionToken;
         })
     })
-    // it('should return status 200', ()=> {
-    //     cy.request({
-    //         method: 'POST',
-    //         url: subscription_url,
-    //         headers: {
-    //             Authorization: 'Bearer ' + sessionToken,
-    //             accept: 'application/json'
-    //         },
-    //         body: {
-    //             "projectId": 1,
-    //             "isTrial": "false",
-    //             "priceId": "price_1MhHh6CbdSsJCAoCbKLjBP0z"
-    //         }
-    //     }).then(({status})=> {
-    //         expect(status).equal(200);        })
-    // })
 
     it('Subscription should have correct Product ID', ()=> {
         cy.request({

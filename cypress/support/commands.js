@@ -23,3 +23,27 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('changePassword', (email, oldPassword, newPassword)=> {
+    cy.request({
+        method: 'POST',
+        url: '/login/user',
+        body: {
+            email: email,
+            password: oldPassword,
+        }
+    }).then(({body})=> {
+        cy.request({
+            method: 'POST',
+            url: '/userPassword',
+            headers: {
+                Authorization: 'Bearer ' + body.message.sessionToken
+            },
+            body: {
+              password: newPassword,
+              passwordConfirmation: newPassword,
+              projectId: 1      
+            }
+        })
+    })
+})

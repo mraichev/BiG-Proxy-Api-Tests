@@ -2,6 +2,7 @@ const { defineConfig } = require("cypress");
 const data = {};
 
 module.exports = defineConfig({
+  projectId: '8vsqq3',
   e2e: {
     baseUrl: "https://big-proxy.oa.r.appspot.com",
     setupNodeEvents(on, config) {
@@ -17,4 +18,5 @@ module.exports = defineConfig({
       })
     },
   },
+  video: false,
 });

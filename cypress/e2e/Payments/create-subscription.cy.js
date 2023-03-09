@@ -3,9 +3,10 @@ const user_email = 'raychevinkiev76@outlook.com';
 const user_password = 'Qwerty1Admin';
 const stripe_creds = 'cGtfdGVzdF81MUtsQ3F0Q2JkU3NKQ0FvQ0VRR1Uxakw3amlyd05neDlld3NxWkxveDNFRE1LRk9QS3JlRUdFZ1hINVZzemF1Yk5hV0pkSzFPRnUzbnpPdllEd0pBUEtFajAwZlJ2VzllNUw=e'
 const stripe_pm_url = 'https://api.stripe.com/v1/payment_methods';
+const stripe_subscription_url = 'https://dashboard.stripe.com/v1/subscriptions/'
 let pm_id = '';
 let stripe_attach_pm_url = '';
-const stripe_customer = 'cus_NTCdZhPugQbB0Z';
+const stripe_customer = 'cus_NTYVEEA5jKduE1';
 let sessionToken = '';
 const subscription_url = '/payments/subscription';
 let subscription_id = '';
@@ -72,6 +73,15 @@ describe('Create Subscription Tests', ()=> {
         }).then(({body})=> {
             subscription_id = body.message.id;
             expect(body.message.plan.product.id).to.equal('prod_NSC5kppV0GxP9v');
+        })
+    })
+    after(()=> {
+        cy.request({
+            method: 'DELETE',
+            url: stripe_subscription_url +subscription_id,
+            headers: {
+                Authorization: 'Basic ' + 'c2tfdGVzdF81MUtsQ3F0Q2JkU3NKQ0FvQ1FhOW9BT2lkSGVkeVYwdFZpUm5pU2g2WmI3eWhKUlhpQ1ptUmViWXRzM0JQUk4xOXJheWZFVlVxUzJLQW5scTVURTdZVDRqTTAwSW1oRk54RkU6s'
+            }
         })
     })
 })

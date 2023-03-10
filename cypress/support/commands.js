@@ -24,6 +24,8 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+let sessionToken;
+
 Cypress.Commands.add('changePassword', (email, oldPassword, newPassword)=> {
     cy.request({
         method: 'POST',
@@ -44,6 +46,43 @@ Cypress.Commands.add('changePassword', (email, oldPassword, newPassword)=> {
               passwordConfirmation: newPassword,
               projectId: 1      
             }
+        })
+    })
+})
+
+Cypress.Commands.add('changeEmail', (email, newEmail, password)=> {
+    cy.request({
+        method: 'POST',
+        url: '/login/user',
+        body: {
+            email: email,
+            password: password,
+        }
+    }).then(({body})=> {
+        sessionToken = body.message.sessionToken
+        cy.request({
+            method: 'POST',
+            url: '/changeEmail',
+            headers: {
+                Authorization: 'Bearer ' + sessionToken
+            },
+            body: {
+              email: newEmail,
+              projectId: 1      
+            }
+        }).then(({body})=> {
+            cy.request({
+                method: 'PUT',
+                url: '/verifyUserEmail',
+                headers: {
+                    Authorization: sessionToken
+                },
+                body: {
+                    tempAccessToken: body.message.tempAccessToken,
+                    code: 657284,
+                    projectId: 1
+                }
+            })
         })
     })
 })

@@ -1,4 +1,4 @@
-const email = "maxraychev@ukr.net";
+const email = "maxraychev6@ukr.net";
 const password = "Qwerty1Admin";
 const firstName = "Max";
 const lastName = "Raychev";
@@ -14,7 +14,7 @@ let response;
 // This is set of registration tests
 describe('Classic Registration Tests', ()=> {
     before(()=> {
-        cy.request('/check/user/maxraychev@ukr.net').then(({body})=> {
+        cy.request('/check/user/maxraychev6@ukr.net').then(({body})=> {
             if (body.error == false){
                 cy.request({
                     method: 'DELETE',
@@ -52,7 +52,7 @@ describe('Classic Registration Tests', ()=> {
                 otpCode,
             }
         }).then(({body})=> {
-            expect(body.message.user.username).to.be.eql('maxraychev')
+            expect(body.message.user.username).to.be.eql('maxraychev6')
             expect(body.message.user.email).to.be.eql(email)
         })
     })

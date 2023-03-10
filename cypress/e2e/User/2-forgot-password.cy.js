@@ -1,7 +1,8 @@
-const email = "maxraychev@urk.net";
+const email = "maxraychev6@ukr.net";
 const projectId = 1;
-const otpCode = 657284
+const otpCode = "657284"
 const newPassword = "1324567"
+const oldPassword = "Qwerty1Admin"
 const forgotPasswordUrl = '/forgotPassword'
 const verifyCodeUrl = '/verificationCode'
 const resetPasswordUrl = '/resetPassword'
@@ -14,7 +15,8 @@ describe('Forgot Password Tests', ()=> {
             url: forgotPasswordUrl,
             body: {
                 email,
-                projectId
+                projectId,
+                lang: "en-US"
             }
         }).then(({body})=> {
             expect(body.error).equal(false)
@@ -29,7 +31,7 @@ describe('Forgot Password Tests', ()=> {
             url: verifyCodeUrl,
             body: {
                 email,
-                otpCode
+                code: otpCode,
             }
         }).then(({body})=> {
             tempAccessToken = body.message.tempAccessToken
@@ -40,7 +42,7 @@ describe('Forgot Password Tests', ()=> {
     })
     it('Reset Password (Step 3)', ()=> {
         cy.request({
-            method: 'POST',
+            method: 'PUT',
             url: resetPasswordUrl,
             body: {
                 password: newPassword,

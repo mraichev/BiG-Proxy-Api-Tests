@@ -99,7 +99,8 @@ describe('Get Invoice For Created Subscription Tests', ()=> {
             url: stripe_subscription_url + subscriptionId,
             headers: {
                 Authorization: 'Basic ' + stripeLogin
-            }
+            },
+            failOnStatusCode: false,
         })
     })
 })

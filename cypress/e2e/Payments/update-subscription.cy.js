@@ -4,14 +4,17 @@ const user_password = 'Qwerty1Admin';
 const stripe_creds = 'cGtfdGVzdF81MUtsQ3F0Q2JkU3NKQ0FvQ0VRR1Uxakw3amlyd05neDlld3NxWkxveDNFRE1LRk9QS3JlRUdFZ1hINVZzemF1Yk5hV0pkSzFPRnUzbnpPdllEd0pBUEtFajAwZlJ2VzllNUw=e'
 const stripe_pm_url = 'https://api.stripe.com/v1/payment_methods';
 const stripe_subscription_url = 'https://dashboard.stripe.com/v1/subscriptions/'
+const stripeLogin = 'c2tfdGVzdF81MUtsQ3F0Q2JkU3NKQ0FvQ1FhOW9BT2lkSGVkeVYwdFZpUm5pU2g2WmI3eWhKUlhpQ1ptUmViWXRzM0JQUk4xOXJheWZFVlVxUzJLQW5scTVURTdZVDRqTTAwSW1oRk54RkU6s'
 let pm_id = '';
 let stripe_attach_pm_url = '';
 const stripe_customer = 'cus_NTYVEEA5jKduE1';
+const priceId = 'price_1MhHh6CbdSsJCAoCbKLjBP0z';
+const newPriceId = 'price_1MgXVMCbdSsJCAoCt4QlK71B'
 let sessionToken = '';
 const subscription_url = '/payments/subscription';
-let subscription_id = '';
+let subscriptionId = '';
 
-describe('Create Subscription Tests', ()=> {
+describe('Update Subscription Tests', ()=> {
     it('Create Stripe Payment Method', ()=> {
         cy.request({
             method: 'POST',
@@ -71,8 +74,34 @@ describe('Create Subscription Tests', ()=> {
                 "priceId": "price_1MhHh6CbdSsJCAoCbKLjBP0z"
             }
         }).then(({body})=> {
-            subscription_id = body.message.id;
+            subscriptionId = body.message.id;
             expect(body.message.plan.product.id).to.equal('prod_NSC5kppV0GxP9v');
+        })
+    })
+    it('Should Update Created Subscription Price ID', ()=> {
+        cy.request({
+            method: 'PATCH',
+            url: subscription_url,
+            headers: {
+                Authorization: 'Bearer ' + sessionToken,
+                accept: 'application/json' 
+            },
+            body: {
+                projectId: 1,
+                priceId: newPriceId
+            }
+        }).then(({body})=> {
+            expect(body.error).equal(false)
+            expect(body.message.items.data[0].price.id).to.be.eql(newPriceId)
+        })
+    })
+    after(()=> {
+        cy.request({
+            method: 'DELETE',
+            url: stripe_subscription_url + subscriptionId,
+            headers: {
+                Authorization: 'Basic ' + stripeLogin
+            }
         })
     })
 })

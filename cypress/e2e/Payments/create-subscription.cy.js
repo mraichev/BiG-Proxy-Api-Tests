@@ -75,13 +75,13 @@ describe('Create Subscription Tests', ()=> {
             expect(body.message.plan.product.id).to.equal('prod_NSC5kppV0GxP9v');
         })
     })
-    after(()=> {
-        cy.request({
-            method: 'DELETE',
-            url: stripe_subscription_url +subscription_id,
-            headers: {
-                Authorization: 'Basic ' + 'c2tfdGVzdF81MUtsQ3F0Q2JkU3NKQ0FvQ1FhOW9BT2lkSGVkeVYwdFZpUm5pU2g2WmI3eWhKUlhpQ1ptUmViWXRzM0JQUk4xOXJheWZFVlVxUzJLQW5scTVURTdZVDRqTTAwSW1oRk54RkU6s'
-            }
-        })
-    })
+    // after(()=> {
+    //     cy.request({
+    //         method: 'DELETE',
+    //         url: stripe_subscription_url +subscription_id,
+    //         headers: {
+    //             Authorization: 'Basic ' + 'c2tfdGVzdF81MUtsQ3F0Q2JkU3NKQ0FvQ1FhOW9BT2lkSGVkeVYwdFZpUm5pU2g2WmI3eWhKUlhpQ1ptUmViWXRzM0JQUk4xOXJheWZFVlVxUzJLQW5scTVURTdZVDRqTTAwSW1oRk54RkU6s'
+    //         }
+    //     })
+    // })
 })

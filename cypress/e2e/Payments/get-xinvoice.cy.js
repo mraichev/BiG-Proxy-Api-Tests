@@ -90,7 +90,8 @@ describe('Get Invoice For Created Subscription Tests', ()=> {
         }).then(({body})=> {
             // subscriptionId = body.message.invoices[0].subscription
             expect(body.error).equal(false)
-            expect(body.message.invoices[0].id).to.contain('in_')    
+            expect(body.message.invoices[0].id).to.contain('in_')
+ //           expect(body.message.invoices[0].number).to.eql('3B234247-0018')    
         })
     })
     after(()=> {
